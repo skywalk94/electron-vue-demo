@@ -8,8 +8,6 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 //取消原生menu菜单
 // Menu.setApplicationMenu(null)
 
-//设置当前应用程序的名字
-app.setName("明知山")
 // 必须在应用程序准备好之前注册方案
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
