@@ -1,12 +1,12 @@
 <template>
   <button class="box" @click="addNewWin()">新增一个窗口</button>
-  <p>111111111111</p>
+  <button @click="flashTray()">系统图标闪烁</button>
 </template>
 
 <script setup>
-import electron from 'electron'
+import { remote, ipcRenderer } from 'electron'
 import { onMounted } from 'vue'
-const BrowserWindow = electron.remote.BrowserWindow
+const BrowserWindow = remote.BrowserWindow
 
 onMounted(() => {
 
@@ -24,6 +24,9 @@ const addNewWin = () => {
     },
   })
   win.loadURL(`${href}mine`);
+}
+const flashTray = () => {
+  ipcRenderer.send('tray-flash')
 }
 </script>
 <style lang="less" scoped src="./index.less">
