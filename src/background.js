@@ -1,4 +1,6 @@
 import { app, protocol, BrowserWindow, Menu, Tray } from 'electron'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const iconPath = path.join(__static, 'logo.png') // public目录下的文件
 let mainWin, tray
@@ -21,6 +23,7 @@ async function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      enableRemoteModule: true
     },
   })
 
@@ -78,3 +81,17 @@ app.on('window-all-closed', (event) => {
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
+
+if (isDevelopment) {
+  if (process.platform === 'win32') {
+    process.on('message', (data) => {
+      if (data === 'graceful-exit') {
+        app.quit()
+      }
+    })
+  } else {
+    process.on('SIGTERM', () => {
+      app.quit()
+    })
+  }
+}

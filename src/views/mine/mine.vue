@@ -1,5 +1,5 @@
 <template>
-    <div>456</div>
+    <div>我是二级页面</div>
 </template>
 
 <script setup>
